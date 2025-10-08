@@ -10,7 +10,7 @@ from PIL import Image
 # Output configuration
 # ================================
 OUT_W = 800       # pixels wide
-OUT_H = 350        # pixels high
+OUT_H = 500        # pixels high
 DPI = 100
 FIGSIZE = (OUT_W / DPI, OUT_H / DPI)  # inches
 
