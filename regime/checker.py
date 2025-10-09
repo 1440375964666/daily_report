@@ -80,7 +80,7 @@ ax.grid(True)
 plt.subplots_adjust(left=0.07, right=0.98, top=0.92, bottom=0.12)
 
 # Save exactly at OUT_W x OUT_H pixels
-out_path = f"../vnindex_volume_{OUT_W}x{OUT_H}.png"
+out_path = f"vnindex_volume_{OUT_W}x{OUT_H}.png"
 fig.savefig(out_path, dpi=DPI)  # figsize * dpi -> EXACT pixel dimensions
 plt.close(fig)
 

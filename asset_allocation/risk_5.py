@@ -6,12 +6,10 @@ sys.path.append(os.path.abspath("../"))
 import numpy as np
 import pandas as pd
 from vnstock_data import Quote
-# from statsmodels.tsa.stattools import adfuller
-# import matplotlib.pyplot as plt
-from function import calculate_threshold, percentage_position
+from asset_allocation.function import calculate_threshold, percentage_position
 from regime.checker import regime_changed_date
 
-path = "../clean_data/trading_data.csv"
+path = "clean_data/trading_data.csv"
 
 sell_spread = pd.read_csv(path)
 sell_spread['date'] = pd.to_datetime(sell_spread['date']).dt.date
@@ -28,7 +26,7 @@ vnindex['time'] = pd.to_datetime(vnindex['time']).dt.date
 vnindex = vnindex.rename(columns={"close": "vnindex", "time": "date"})
 
 """ Total market cap & outstanding share """
-path = 'outstanding_with_close.csv'
+path = 'asset_allocation/outstanding_with_close.csv'
 outstanding_share = pd.read_csv(path)
 outstanding_share['market_cap'] = outstanding_share['close'] * outstanding_share['so_cp_luu_hanh']
 total_market_cap = outstanding_share['market_cap'].sum()

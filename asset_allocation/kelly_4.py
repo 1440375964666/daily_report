@@ -1,4 +1,9 @@
-from risk_4 import losing_percentage, risk
+import sys
+import os
+# Add root path to access index_constructor.py
+sys.path.append(os.path.abspath("../"))
+
+from asset_allocation.risk_5 import losing_percentage, risk
 import random
 
 losing_percentage = risk / 100

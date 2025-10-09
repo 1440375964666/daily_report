@@ -1,5 +1,5 @@
-from risk_4 import merge
-from kelly_5 import asset_allocation
+from asset_allocation.risk_5 import merge
+from asset_allocation.kelly_4 import asset_allocation
 import matplotlib.pyplot as plt
 from datetime import date
 from matplotlib.gridspec import GridSpec
@@ -58,9 +58,9 @@ plt.subplots_adjust(left=0.07, right=0.97, top=0.93, bottom=0.05, hspace=0.25)
 # ================================
 # Save exactly at OUT_W × OUT_H pixels
 # ================================
-out_dir = "../"
-out_name = f"selling_pressure_{OUT_W}x{OUT_H}.png"
-out_path = os.path.join(out_dir, out_name)
+# out_dir = "/"
+# out_name = f"selling_pressure_{OUT_W}x{OUT_H}.png"
+out_path = f"selling_pressure_{OUT_W}x{OUT_H}.png" #os.path.join(out_dir, out_name)
 
 fig.savefig(out_path, dpi=DPI)
 plt.close(fig)
