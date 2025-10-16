@@ -36,6 +36,7 @@ def get_allshare_index(symbols: list[str], start_date: str = {start_date}) -> pd
     sector_df = None
 
     for symbol in tqdm(symbols, desc="Loading VN_allshare_index"):
+        print(f"Loading {symbol}")
         quote = Quote(source='vnd', symbol=symbol)
         df = quote.history(start=start_date, end = f"{today}", interval="1D")
 
@@ -68,6 +69,7 @@ def get_sector_index(symbols: dict, start_date: str = start_date) -> pd.DataFram
         sector_df = None  # Temp DataFrame to build per-sector
 
         for ticker in tqdm(symbol_list, desc=f"Loading {code}"):
+            print(f"Loading {ticker}")
             quote = Quote(source='vnd', symbol=ticker)
             df = quote.history(start=start_date, end=f"{today}", interval="1D")
 

@@ -1,5 +1,5 @@
 import requests
-from datetime import datetime, timezone, timedelta
+from datetime import date, datetime, timezone, timedelta
 import json
 from weighting.func_ranking import message
 
@@ -33,16 +33,19 @@ def send_teams_message(webhook_url, message):
     return resp
 
 if __name__ == "__main__":
-    ts = get_bangkok_timestamp(compact=True)
-    print("Sending timestamp:", ts)
+    # ts = get_bangkok_timestamp(compact=True)
+    # print("Sending timestamp:", ts)
+
+    today = date.today().strftime("%Y_%m_%d")
+
     try:
         # Send regime
-        regime = send_timestamp(WEBHOOK_URL_REGIME, ts)
+        regime = send_timestamp(WEBHOOK_URL_REGIME, today)
         print("Status:", regime.status_code)
         print("Response:", regime.text)
 
         # Send AA
-        asset_allocation = send_timestamp(WEBHOOK_URL_AA, ts)
+        asset_allocation = send_timestamp(WEBHOOK_URL_AA, today)
         print("Status:", asset_allocation.status_code)
         print("Response:", asset_allocation.text)
 
