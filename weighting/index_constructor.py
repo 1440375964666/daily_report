@@ -3,6 +3,7 @@ from vnstock_data import Trading, Quote
 import pandas as pd
 from datetime import date, timedelta
 from tqdm import tqdm
+import time
 
 today = date.today() 
 start_date = "2025-07-03"
@@ -48,6 +49,7 @@ def get_allshare_index(symbols: list[str], start_date: str = {start_date}) -> pd
             sector_df = df
         else:
             sector_df = pd.merge(sector_df, df, on="time", how="outer")
+        time.sleep(0.22)  # To avoid hitting API rate limits
 
     if sector_df is not None:
 
