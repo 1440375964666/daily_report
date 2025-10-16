@@ -9,6 +9,13 @@ from datetime import date
     
 # # print(yesterday)
 
-today = date.today()
-print(today.strftime("%Y_%m_%d"))  # -> "2025_10_16"
-print(today)
+import numpy as np
+
+# today = date.today()
+# print(today.strftime("%Y_%m_%d"))  # -> "2025_10_16"
+# print(today)
+
+# 1D array
+arr_1d = np.array([1, 2, 3, 4, 5])
+cumulative_product_1d = np.cumprod(arr_1d)
+print(f"Cumulative product of 1D array: {cumulative_product_1d}")

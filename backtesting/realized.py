@@ -1,6 +1,7 @@
 """ After taking profit """
+""" Update system when need to seperate realized and unrealized """
 
-- Return
+- Return when apply strategy
 - Sharpe ratio
 - Volatility
 - R-squared root cause
