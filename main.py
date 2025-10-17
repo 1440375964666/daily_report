@@ -27,7 +27,7 @@ tomorrow_str = (date.today() + pd.Timedelta(days=1)).strftime("%Y_%m_%d")
 table_data = [
     [asset_allocation]
 ]
-column_header = [f"Khuyến nghị tự doanh: {today_str}"]
+column_header = [f"Khuyến nghị tự doanh: {tomorrow_str}"]
 
 # ================================
 # Figure and layout (2 rows: plot + table)

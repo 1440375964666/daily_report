@@ -2,7 +2,7 @@ import requests
 from datetime import date, datetime, timezone, timedelta
 import json
 import pandas as pd
-from weighting.func_ranking import message
+# from weighting.func_ranking import message
 
 WEBHOOK_URL_REGIME = "https://defaultfaae79b27e8f423993e3c7b5cb5b2e.4b.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/4fd6c1601f964b629b661216b6e77d77/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=iMCAtWfMIRWmYuLWWUtLZUuT4-JpXmHjw6v0IdWXAxE"
 WEBHOOK_URL_AA = "https://defaultfaae79b27e8f423993e3c7b5cb5b2e.4b.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/3975339ef26c47829f1d26865d746a7c/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=SK1Fzr1fRsbfp9zxnHNmqaJXO65JR9pIanZLZ8G8qck"
@@ -50,9 +50,9 @@ if __name__ == "__main__":
         print("Status:", asset_allocation.status_code)
         print("Response:", asset_allocation.text)
 
-        # Send Weight
-        weight = send_teams_message(WEBHOOK_URL_WEIGHT, message)
-        print("Status:", weight.status_code)
-        print("Response:", weight.text)
+        # # Send Weight
+        # weight = send_teams_message(WEBHOOK_URL_WEIGHT, message)
+        # print("Status:", weight.status_code)
+        # print("Response:", weight.text)
     except requests.RequestException as e:
         print("Request failed:", e)
