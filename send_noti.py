@@ -1,6 +1,7 @@
 import requests
 from datetime import date, datetime, timezone, timedelta
 import json
+import pandas as pd
 from weighting.func_ranking import message
 
 WEBHOOK_URL_REGIME = "https://defaultfaae79b27e8f423993e3c7b5cb5b2e.4b.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/4fd6c1601f964b629b661216b6e77d77/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=iMCAtWfMIRWmYuLWWUtLZUuT4-JpXmHjw6v0IdWXAxE"
@@ -36,16 +37,16 @@ if __name__ == "__main__":
     # ts = get_bangkok_timestamp(compact=True)
     # print("Sending timestamp:", ts)
 
-    today = date.today().strftime("%Y_%m_%d")
+    tomorrow_str = (date.today() + pd.Timedelta(days=1)).strftime("%Y_%m_%d")
 
     try:
         # Send regime
-        regime = send_timestamp(WEBHOOK_URL_REGIME, today)
+        regime = send_timestamp(WEBHOOK_URL_REGIME, tomorrow_str)
         print("Status:", regime.status_code)
         print("Response:", regime.text)
 
         # Send AA
-        asset_allocation = send_timestamp(WEBHOOK_URL_AA, today)
+        asset_allocation = send_timestamp(WEBHOOK_URL_AA, tomorrow_str)
         print("Status:", asset_allocation.status_code)
         print("Response:", asset_allocation.text)
 

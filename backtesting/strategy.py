@@ -112,7 +112,7 @@ new_zscore = strategy_df["z_score"] - min_zscore
 cash_allocation = new_zscore / new_zscore.max()
 strategy_df["asset_allocation"] = portfolio_value * (1 - cash_allocation)
 
-portfolio_starting_value = strategy_df["asset_allocation"].iloc[0]
+portfolio_starting_value = strategy_df.iloc[0]["asset_allocation"]
 strategy_df = strategy_df.dropna().copy()
 strategy_df = strategy_df[strategy_df["cross"] == True]
 strategy_df = strategy_df.sort_values(ascending=True, by="time")
