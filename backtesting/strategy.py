@@ -53,27 +53,27 @@ def moving_average(data, window_size):
     return pd.Series(data).rolling(window=window_size).mean()
 
 # === Data ===
-# vnindex_df = get_symbol_data("VNINDEX", start_date, end_date)
-# vnindex = get_symbol_data("VNINDEX", start_date, end_date)["VNINDEX"]
-# ma_50 = moving_average(vnindex, 50)
+vnindex_df = get_symbol_data("VNINDEX", start_date, end_date)
+vnindex = get_symbol_data("VNINDEX", start_date, end_date)["VNINDEX"]
+ma_50 = moving_average(vnindex, 50)
 
-# spread = vnindex - ma_50
-# z_score = (spread - spread.mean()) / spread.std()
+spread = vnindex - ma_50
+z_score = (spread - spread.mean()) / spread.std()
 
-# vnindex_df["sign"] = spread.apply(lambda x: 1 if x > 0 else (-1 if x < 0 else 0))
-# vnindex_df["cross"] = vnindex_df["sign"].diff().fillna(0).ne(0)
-# cross_point = vnindex_df[vnindex_df["cross"]]
-# # Normalization for allocation
-# max_zscore = z_score.max()
-# min_zscore = z_score.min()
-# new_zscore = z_score - min_zscore
-# cash_allocation = new_zscore / new_zscore.max()
-# asset_allocation = 1 - cash_allocation
-
-# print(asset_allocation)
+vnindex_df["sign"] = spread.apply(lambda x: 1 if x > 0 else (-1 if x < 0 else 0))
+vnindex_df["cross"] = vnindex_df["sign"].diff().fillna(0).ne(0)
+cross_point = vnindex_df[vnindex_df["cross"]]
+# Normalization for allocation
+max_zscore = z_score.max()
+min_zscore = z_score.min()
+new_zscore = z_score - min_zscore
+cash_allocation = new_zscore / new_zscore.max()
+asset_allocation = 1 - cash_allocation
+vnindex_df["asset_allocation"] = asset_allocation
+vnindex_df.to_csv("vnindex_strategy.csv")
 # print(vnindex_df)
 # print(cross_point)
-# # === Plot ===
+# === Plot ===
 # fig, axes = plt.subplots(2, 1, figsize=(12, 8), sharex=True)
 
 # # Top chart: VNINDEX + MA50
@@ -95,35 +95,35 @@ def moving_average(data, window_size):
 # plt.tight_layout()
 # plt.show()
 
-"""================================"""
+# """================================"""
 
-portfolio_value = 100000000000
+# portfolio_value = 100000000000
 
-strategy_df = get_symbol_data("VNINDEX", start_date, end_date)
-strategy_df["MA50"] = moving_average(strategy_df["VNINDEX"], 50)
-spread = strategy_df["VNINDEX"] - strategy_df["MA50"]
-strategy_df["z_score"] = (spread - spread.mean()) / spread.std()
-strategy_df["sign"] = spread.apply(lambda x: 1 if x > 0 else (-1 if x < 0 else 0))
-strategy_df["cross"] = strategy_df["sign"].diff().fillna(0).ne(0)
-cross_point = strategy_df[strategy_df["cross"]]
-max_zscore = strategy_df["z_score"].max()
-min_zscore = strategy_df["z_score"].min()
-new_zscore = strategy_df["z_score"] - min_zscore
-cash_allocation = new_zscore / new_zscore.max()
-strategy_df["asset_allocation"] = portfolio_value * (1 - cash_allocation)
+# strategy_df = get_symbol_data("VNINDEX", start_date, end_date)
+# strategy_df["MA50"] = moving_average(strategy_df["VNINDEX"], 50)
+# spread = strategy_df["VNINDEX"] - strategy_df["MA50"]
+# strategy_df["z_score"] = (spread - spread.mean()) / spread.std()
+# strategy_df["sign"] = spread.apply(lambda x: 1 if x > 0 else (-1 if x < 0 else 0))
+# strategy_df["cross"] = strategy_df["sign"].diff().fillna(0).ne(0)
+# cross_point = strategy_df[strategy_df["cross"]]
+# max_zscore = strategy_df["z_score"].max()
+# min_zscore = strategy_df["z_score"].min()
+# new_zscore = strategy_df["z_score"] - min_zscore
+# cash_allocation = new_zscore / new_zscore.max()
+# strategy_df["asset_allocation"] = portfolio_value * (1 - cash_allocation)
 
-portfolio_starting_value = strategy_df.iloc[0]["asset_allocation"]
-strategy_df = strategy_df.dropna().copy()
-strategy_df = strategy_df[strategy_df["cross"] == True]
-strategy_df = strategy_df.sort_values(ascending=True, by="time")
-# strategy_df['asset_allocation_shifted'] = strategy_df['asset_allocation'].shift(1)
-strategy_df["return"] = strategy_df["asset_allocation"].pct_change().fillna(0)
-strategy_df["return_shifted"] = strategy_df["return"].shift(-1)  # next day return
-strategy_df["real_return"] = strategy_df["asset_allocation"] * strategy_df["return_shifted"]
-profit = strategy_df["real_return"].sum() #+ format.uniform(100, 200)
-print(f"Profit: {profit}")
-print(f"Starting portfolio value: {portfolio_starting_value}")
-print(f"Portfolio return: {profit / portfolio_starting_value}")
+# portfolio_starting_value = strategy_df.iloc[0]["asset_allocation"]
+# strategy_df = strategy_df.dropna().copy()
+# strategy_df = strategy_df[strategy_df["cross"] == True]
+# strategy_df = strategy_df.sort_values(ascending=True, by="time")
+# # strategy_df['asset_allocation_shifted'] = strategy_df['asset_allocation'].shift(1)
+# strategy_df["return"] = strategy_df["asset_allocation"].pct_change().fillna(0)
+# strategy_df["return_shifted"] = strategy_df["return"].shift(-1)  # next day return
+# strategy_df["real_return"] = strategy_df["asset_allocation"] * strategy_df["return_shifted"]
+# profit = strategy_df["real_return"].sum() #+ format.uniform(100, 200)
+# print(f"Profit: {profit}")
+# print(f"Starting portfolio value: {portfolio_starting_value}")
+# print(f"Portfolio return: {profit / portfolio_starting_value}")
 # print(strategy_df)
 # final_value = [portfolio_starting_value]
 
