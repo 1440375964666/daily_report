@@ -50,7 +50,7 @@ def get_allshare_index(symbols: list[str], start_date: str = {start_date}) -> pd
             sector_df = df
         else:
             sector_df = pd.merge(sector_df, df, on="time", how="outer")
-        time.sleep(0.22)  # To avoid hitting API rate limits
+        time.sleep(1)  # To avoid hitting API rate limits
 
     if sector_df is not None:
 
@@ -84,6 +84,8 @@ def get_sector_index(symbols: dict, start_date: str = start_date) -> pd.DataFram
                 sector_df = df
             else:
                 sector_df = pd.merge(sector_df, df, on="time", how="outer")
+
+            time.sleep(1)  # To avoid hitting API rate limits
 
         if sector_df is not None:
             sector_df.sort_values("time", inplace=True)
