@@ -1,5 +1,6 @@
 import index_constructor
 import numpy as np
+from datetime import date
 import pandas as pd
 import sys
 import os
@@ -8,6 +9,8 @@ import os
 path = "all_indices.csv"
 indices = pd.read_csv(path)
 indices.set_index('time', inplace=True)
+
+tomorrow_str = (date.today() + pd.Timedelta(days=1)).strftime("%Y-%m-%d")
 
 # === Step 1: Define which columns to log (exclude 'index') ===
 cols_to_log = [col for col in indices.columns if col != 'index']
@@ -35,7 +38,7 @@ weight = (abs(ranked) / sum_abs) * 100
 current_weight = weight[-5:]
 
 message = "**📊 Sector Weighting Update**\n\n"
-message += f"**Date:** {current_weight.name}\n\n"
+message += f"**Date:** {tomorrow_str}\n\n"
 for sector, value in current_weight.items():
     message += f"- **{sector}**: {value:.2f}%\n"
     
