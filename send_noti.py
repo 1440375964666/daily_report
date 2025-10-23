@@ -37,16 +37,17 @@ if __name__ == "__main__":
     # ts = get_bangkok_timestamp(compact=True)
     # print("Sending timestamp:", ts)
 
-    tomorrow_str = (date.today() + pd.Timedelta(days=1)).strftime("%Y_%m_%d")
+    # tomorrow_str = (date.today() + pd.Timedelta(days=1)).strftime("%Y_%m_%d")
+    today_formatted = date.today().strftime("%Y_%m_%d")
 
     try:
         # Send regime
-        regime = send_timestamp(WEBHOOK_URL_REGIME, tomorrow_str)
+        regime = send_timestamp(WEBHOOK_URL_REGIME, today_formatted)
         print("Status:", regime.status_code)
         print("Response:", regime.text)
 
         # Send AA
-        asset_allocation = send_timestamp(WEBHOOK_URL_AA, tomorrow_str)
+        asset_allocation = send_timestamp(WEBHOOK_URL_AA, today_formatted)
         print("Status:", asset_allocation.status_code)
         print("Response:", asset_allocation.text)
 

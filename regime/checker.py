@@ -19,7 +19,7 @@ FIGSIZE = (OUT_W / DPI, OUT_H / DPI)  # inches
 # -------------------------
 today = date.today()
 today_formatted = date.today().strftime("%Y_%m_%d")
-tomorrow_str = (date.today() + pd.Timedelta(days=1)).strftime("%Y_%m_%d")
+# tomorrow_str = (date.today() + pd.Timedelta(days=1)).strftime("%Y_%m_%d")
 quote = Quote(source='vnd', symbol="VNINDEX")
 df = quote.history(start="2000-01-01", end=f"{today}", interval="1D")
 df = df[["time", "volume"]]
@@ -83,11 +83,11 @@ ax.grid(True)
 plt.subplots_adjust(left=0.07, right=0.98, top=0.92, bottom=0.12)
 
 # Save exactly at OUT_W x OUT_H pixels
-out_path = f"vnindex_volume_{tomorrow_str}.png"
+out_path = f"vnindex_volume_{today_formatted}.png"
 fig.savefig(out_path, dpi=DPI)  # figsize * dpi -> EXACT pixel dimensions
 plt.close(fig)
 
-print(f"Saved: {out_path} (expected {tomorrow_str} px)")
+print(f"Saved: {out_path} (expected {today_formatted} px)")
 # Optional verification (Pillow)
 try:
     from PIL import Image

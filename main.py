@@ -21,13 +21,13 @@ FIGSIZE = (OUT_W / DPI, OUT_H / DPI)  # inches
 ytd = merge  # optionally filter: .loc["2024-01-01":]
 today_str = date.today().strftime("%Y-%m-%d")
 today_formatted = date.today().strftime("%Y_%m_%d")
-tomorrow_str = (date.today() + pd.Timedelta(days=1)).strftime("%Y_%m_%d")
+# tomorrow_str = (date.today() + pd.Timedelta(days=1)).strftime("%Y_%m_%d")
 
 # Table data
 table_data = [
     [asset_allocation]
 ]
-column_header = [f"Khuyến nghị tự doanh: {tomorrow_str}"]
+column_header = [f"Khuyến nghị tự doanh: {today_formatted}"]
 
 # ================================
 # Figure and layout (2 rows: plot + table)
@@ -63,7 +63,7 @@ plt.subplots_adjust(left=0.07, right=0.97, top=0.93, bottom=0.05, hspace=0.25)
 # ================================
 # out_dir = "/"
 # out_name = f"selling_pressure_{OUT_W}x{OUT_H}.png"
-out_path = f"selling_pressure_{tomorrow_str}.png" #os.path.join(out_dir, out_name)
+out_path = f"selling_pressure_{today_formatted}.png" #os.path.join(out_dir, out_name)
 
 fig.savefig(out_path, dpi=DPI)
 plt.close(fig)
