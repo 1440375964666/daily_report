@@ -1,4 +1,4 @@
-from weighting import major_sector_list
+import major_sector_list
 from vnstock_data import Trading, Quote
 import pandas as pd
 from datetime import date, timedelta

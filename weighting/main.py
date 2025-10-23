@@ -1,49 +1,50 @@
+import index_constructor
+import numpy as np
+import pandas as pd
 import sys
 import os
-# Add root path to access index_constructor.py
-sys.path.append(os.path.abspath("../../../"))
 
-import index_constructor
-import pandas as pd
-import matplotlib.pyplot as plt
-from func_ranking import ranked
-import matplotlib.dates as mdates
-import numpy as np
-from major_sector_list import code_to_name, filtered_dict
-from xlsxwriter import Workbook
-from datetime import datetime
+# === Load the data ===
+path = "all_indices.csv"
+indices = pd.read_csv(path)
+indices.set_index('time', inplace=True)
 
-today = datetime.now().strftime("%Y-%m-%d")
-# print(ranked)
-# print(code_to_name)
-# print(filtered_dict)
+# === Step 1: Define which columns to log (exclude 'index') ===
+cols_to_log = [col for col in indices.columns if col != 'index']
 
-# Create DataFrame for overvalued sectors
-overvalued_df = ranked[ranked > 0].sort_values(ascending=False).reset_index()
-overvalued_df.columns = ['Sector', 'Z-Score']
-overvalued_df['Rank'] = overvalued_df['Z-Score'].rank(ascending=False).astype(int)
-# Create DataFrame for undervalued sectors
-undervalued_df = ranked[ranked < 0].sort_values(ascending=True).reset_index()
-undervalued_df.columns = ['Sector', 'Z-Score']
-undervalued_df['Rank'] = undervalued_df['Z-Score'].rank(ascending=True).astype(int)
-# 3. Sector-Symbol table
-sector_symbols = {
-    code_to_name[code]: symbols
-    for code, symbols in filtered_dict.items()
-    if code in code_to_name
-}
-df_sector_symbols = pd.DataFrame(list(sector_symbols.items()), columns=["Sector", "Symbols"])
-df_sector_symbols["Symbols"] = df_sector_symbols["Symbols"].apply(lambda x: ", ".join(x))
+# === Step 2: Apply log transformation ===
+log_indices = indices.copy()
+log_indices[cols_to_log] = np.log(indices[cols_to_log])
+log_indices['index'] = np.log(indices['index'])  # optional, keeps scale consistent
 
-# overvalued_df.set_index("Sector", inplace=True)
-# undervalued_df.set_index("Sector", inplace=True)
-# df_sector_symbols.set_index("Sector", inplace=True)
+# === Step 3: Subtract index column to compute spread ===
+spread_df = log_indices[cols_to_log].subtract(log_indices['index'], axis=0)
 
-# Save to one Excel file with different sheets
-with pd.ExcelWriter(f"sector_ranking_{today}.xlsx", engine="xlsxwriter") as writer:
-    overvalued_df.to_excel(writer, sheet_name="overvalued", index=False)
-    undervalued_df.to_excel(writer, sheet_name="undervalued", index=False)
-    df_sector_symbols.to_excel(writer, sheet_name="sector_symbols", index=False)
+# === Step 4: Calculate z-score for each column ===
+z_score_df = (spread_df - spread_df.mean()) / spread_df.std()
 
+# === Step 5: Get the latest row (last date) ===
+last_row = z_score_df.iloc[-1]
 
+# === Step 6: Rank columns by descending value ===
+ranked = last_row.sort_values(ascending=False)
 
+# === Step 7: Calculate relative weights based on last 5 (lowest) z-scores ===
+sum_abs = abs(ranked[-5:]).sum()
+weight = (abs(ranked) / sum_abs) * 100
+current_weight = weight[-5:]
+
+message = "**📊 Sector Weighting Update**\n\n"
+message += f"**Date:** {current_weight.name}\n\n"
+for sector, value in current_weight.items():
+    message += f"- **{sector}**: {value:.2f}%\n"
+    
+# # === Optional: Export ===
+# print(message)
+
+# === Save the message to a file ===
+output_path = "../sector_weighting_update.txt"
+with open(output_path, "w", encoding="utf-8") as f:
+    f.write(message)
+
+print(f"✅ Sector weighting update saved to {output_path}")

@@ -2,7 +2,6 @@ import requests
 from datetime import date, datetime, timezone, timedelta
 import json
 import pandas as pd
-from weighting.func_ranking import message
 
 WEBHOOK_URL_REGIME = "https://defaultfaae79b27e8f423993e3c7b5cb5b2e.4b.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/4fd6c1601f964b629b661216b6e77d77/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=iMCAtWfMIRWmYuLWWUtLZUuT4-JpXmHjw6v0IdWXAxE"
 WEBHOOK_URL_AA = "https://defaultfaae79b27e8f423993e3c7b5cb5b2e.4b.environment.api.powerplatform.com:443/powerautomate/automations/direct/workflows/3975339ef26c47829f1d26865d746a7c/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=SK1Fzr1fRsbfp9zxnHNmqaJXO65JR9pIanZLZ8G8qck"
@@ -34,10 +33,10 @@ def send_teams_message(webhook_url, message):
     return resp
 
 if __name__ == "__main__":
-    # ts = get_bangkok_timestamp(compact=True)
-    # print("Sending timestamp:", ts)
+    
+    with open("sector_weighting_update.txt", "r", encoding="utf-8") as file:
+        message = file.read()
 
-    # tomorrow_str = (date.today() + pd.Timedelta(days=1)).strftime("%Y_%m_%d")
     today_formatted = date.today().strftime("%Y_%m_%d")
 
     try:

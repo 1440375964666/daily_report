@@ -1,12 +1,8 @@
-import os
-import sys
-sys.path.append(os.path.abspath("../"))
-
 import json
 from vnstock_data import Company, Listing
 import pandas as pd
 
-with open('asset_allocation/top_liquidity_symbols.json', 'r') as f: #../../../
+with open('../asset_allocation/top_liquidity_symbols.json', 'r') as f: #../../../
     liquidity_list = json.load(f)
 
 listing = Listing(source='vci')
