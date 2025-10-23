@@ -1,41 +1,10 @@
-# import pandas as pd
-
-# # path_hp = 'historical_price.csv'
-# # historical_price = pd.read_csv(path_hp)
-# # historical_price.drop([ 'timestamp', 'open', 'high', 'low', 'volume', 'bu', 'sd'], axis=1, inplace=True)
-# # historical_price.set_index('ticker', inplace=True)
-# # print(historical_price)
-
-# path_os = 'outstanding_share.csv'
-# outstanding_share = pd.read_csv(path_os)
-# outstanding_share.sort_values(by=['so_cp_luu_hanh'], ascending=True, inplace=True)
-# outstanding_share.set_index('symbol', inplace=True)
-# print(outstanding_share)
-# # # ====================================================
-# # merged_df = pd.merge(historical_price, outstanding_share, left_index=True, right_index=True)
-# # merged_df['market_cap'] = merged_df['close'] * merged_df['so_cp_luu_hanh']
-# # total_market_cap = merged_df['market_cap'].sum()
-# # total_outstanding_share = outstanding_share['so_cp_luu_hanh'].sum()
-
-# from vnstock_data import Finance, Quote
-# from datetime import date, timedelta
-
-# today = date.today()
-# yesterday = date.today() - timedelta(days=1)
-# quote = Quote(source='vnd', symbol="VNINDEX")
-# vnindex = quote.history(start=f"{yesterday}", end=f"{today}", interval="1D")
-
-import sys
-import os
-# Add root path to access index_constructor.py
-sys.path.append(os.path.abspath("../")) # ../../
-
 import pandas as pd
 from vnstock_data import Finance, Quote
 import time
 import json
 from tqdm import tqdm
 from datetime import date, timedelta
+import liquidity_filter as liquidity_filter
 
 path = 'top_liquidity_symbols.json'
 with open(path, 'r') as f:

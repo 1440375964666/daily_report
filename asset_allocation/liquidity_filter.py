@@ -1,8 +1,3 @@
-import sys
-import os
-# Add root path to access index_constructor.py
-sys.path.append(os.path.abspath("../")) # ../../
-
 import pandas as pd
 from datetime import date
 from vnstock_data import Trading, Listing, Quote
