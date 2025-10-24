@@ -1,9 +1,9 @@
 **📊 Sector Weighting Update**
 
-**Date:** 2025-10-23
+**Date:** 2025-10-24
 
-- **Công nghiệp nặng**: 14.53%
-- **Bảo hiểm nhân thọ**: 18.45%
-- **Kim loại**: 20.39%
-- **Hàng công nghiệp**: 20.74%
-- **Bất động sản**: 25.89%
+- **Công nghiệp nặng**: 14.60%
+- **Bảo hiểm nhân thọ**: 18.60%
+- **Kim loại**: 19.79%
+- **Hàng công nghiệp**: 20.41%
+- **Bất động sản**: 26.60%

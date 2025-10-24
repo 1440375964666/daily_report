@@ -11,9 +11,9 @@ from vnstock_data import Quote
 # ================================
 # Output configuration
 # ================================
-OUT_W = 870       # pixels wide
-OUT_H = 372        # pixels high
-DPI = 88
+OUT_W = 800       # pixels wide
+OUT_H = 500        # pixels high
+DPI = 100
 FIGSIZE = (OUT_W / DPI, OUT_H / DPI)  # inches
 
 losing_percentage = risk / 100
@@ -40,36 +40,6 @@ else:
         f"Short 0% VN30 || Hold {kelly:.2f}% stocks || Hold {100 - kelly:.2f}% cash"
     )
 
-# path = "../clean_data/trading_data.csv"
-
-# sell_spread = pd.read_csv(path)
-# sell_spread['date'] = pd.to_datetime(sell_spread['date']).dt.date
-# sell_spread.sort_values(by='date', inplace=True)
-# sell_spread.dropna(inplace=True)
-
-# """ Refine VNI data """
-# first_day = sell_spread['date'].iloc[0]
-# last_day = sell_spread['date'].iloc[-1]
-# quote = Quote(source='vnd', symbol="VNINDEX")
-# vnindex = quote.history(start=f"{first_day}", end=f"{last_day}", interval="1D")
-# vnindex = vnindex[["time", "close"]]
-# vnindex['time'] = pd.to_datetime(vnindex['time']).dt.date
-# vnindex = vnindex.rename(columns={"close": "vnindex", "time": "date"})
-
-# """ Total market cap & outstanding share """
-# path = 'outstanding_with_close.csv'
-# outstanding_share = pd.read_csv(path)
-# outstanding_share['market_cap'] = outstanding_share['close'] * outstanding_share['so_cp_luu_hanh']
-# total_market_cap = outstanding_share['market_cap'].sum()
-# total_outstanding_share = outstanding_share['so_cp_luu_hanh'].sum()
-
-# """ Merge & calculate """
-# merge = pd.merge(sell_spread, vnindex, on='date')
-# merge.set_index('date', inplace=True)
-# merge = merge.loc[regime_changed_date] #"2025-07-25"
-# print(merge)
-
-# ytd = merge  # optionally filter: .loc["2024-01-01":]
 today_str = date.today().strftime("%Y-%m-%d")
 today_formatted = date.today().strftime("%Y_%m_%d")
 # tomorrow_str = (date.today() + pd.Timedelta(days=1)).strftime("%Y_%m_%d")
@@ -91,8 +61,8 @@ ax_table = fig.add_subplot(gs[1])
 
 # --- Plot SELLING PRESSURE ---
 ax_plot.plot(merge.index, merge['z_score_vol'], label='Pressure', color='orange', linewidth=1.8)
-ax_plot.set_title('SELLING PRESSURE', fontsize=11, fontweight='bold', pad=8)
-# ax_plot.set_ylabel('SCORE')
+ax_plot.set_title('SELLING PRESSURE', fontsize=14, fontweight='bold', pad=10)
+ax_plot.set_ylabel('SCORE')
 ax_plot.grid(True, alpha=0.3)
 ax_plot.legend(loc='upper left', fontsize=9)
 
@@ -117,7 +87,7 @@ plt.subplots_adjust(left=0.07, right=0.97, top=0.93, bottom=0.05, hspace=0.25)
 out_path = f"../selling_pressure_{today_formatted}.png" #os.path.join(out_dir, out_name)
 
 fig.savefig(out_path, dpi=DPI)
-# plt.close(fig)
+plt.close(fig)
 
 print(f"✅ Saved chart: {out_path} (expected {OUT_W}×{OUT_H} px)")
 
