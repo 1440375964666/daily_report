@@ -40,6 +40,7 @@ else:
         f"Short 0% VN30 || Hold {kelly:.2f}% stocks || Hold {100 - kelly:.2f}% cash"
     )
 
+# print(kelly)
 today_str = date.today().strftime("%Y-%m-%d")
 today_formatted = date.today().strftime("%Y_%m_%d")
 # tomorrow_str = (date.today() + pd.Timedelta(days=1)).strftime("%Y_%m_%d")
