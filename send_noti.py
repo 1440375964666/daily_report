@@ -43,19 +43,19 @@ if __name__ == "__main__":
 
     try:
         # Send regime
-        # regime = send_timestamp(WEBHOOK_URL_REGIME, today_formatted)
-        # print("Status:", regime.status_code)
-        # print("Response:", regime.text)
+        regime = send_timestamp(WEBHOOK_URL_REGIME, today_formatted)
+        print("Status:", regime.status_code)
+        print("Response:", regime.text)
 
         # Send AA
         asset_allocation = send_timestamp(WEBHOOK_URL_AA, today_formatted)
         print("Status:", asset_allocation.status_code)
         print("Response:", asset_allocation.text)
 
-        # # Send Weight
-        # weight = send_teams_message(WEBHOOK_URL_WEIGHT, message)
-        # print("Status:", weight.status_code)
-        # print("Response:", weight.text)
+        # Send Weight
+        weight = send_teams_message(WEBHOOK_URL_WEIGHT, message)
+        print("Status:", weight.status_code)
+        print("Response:", weight.text)
 
     except requests.RequestException as e:
         print("Request failed:", e)
