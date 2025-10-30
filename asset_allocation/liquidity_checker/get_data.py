@@ -1,25 +1,3 @@
-# import os
-# import sys
-# sys.path.append(os.path.abspath("../"))
-
-# ticker = input("Enter the ticker symbol: ")
-
-# # # def check_liquidity(ticker):
-# from vnstock import Company, Quote
-# company = Company(symbol=ticker, source='TCBS').overview()
-
-# quote = Quote(symbol=ticker, source='VCI')
-# price = quote.history(start='2023-01-01', end='2025-12-31', interval='1D')
-
-# import json
-
-# path = "../top_liquidity_symbols.json"
-# with open(path, 'r') as f:
-#     top_liquidity_symbols = json.load(f)
-# # print(top_liquidity_symbols)
-# print(company)
-# print(price)
-
 import json
 import time
 from pathlib import Path
@@ -29,7 +7,7 @@ import pandas as pd
 from vnstock import Company, Quote
 
 # --------- Config ---------
-START = "2023-01-01"
+START = "2025-07-03"
 END   = "2025-12-31"
 INTERVAL = "1D"
 JSON_PATH = Path("../top_liquidity_symbols.json")
@@ -100,8 +78,8 @@ def build_liquidity_df(symbols: list[str],
         )
         # Light throttling
         time.sleep(PAUSE_SEC)
-        if i % 20 == 0:
-            print(f"...processed {i} symbols")
+        # if i % 20 == 0:
+        #     print(f"...processed {i} symbols")
 
     df = pd.DataFrame(rows)
     # Optional: sort by mean_volume descending
