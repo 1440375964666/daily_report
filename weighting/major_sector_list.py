@@ -1,6 +1,7 @@
 import json
 from vnstock_data import Company, Listing
 import pandas as pd
+import requests
 
 with open('../asset_allocation/top_liquidity_symbols.json', 'r') as f: #../../../
     liquidity_list = json.load(f)
