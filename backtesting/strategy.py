@@ -46,7 +46,7 @@ from sklearn.linear_model import LinearRegression
 from get_data import calculate_drawdown
 import random as format
 
-start_date = "2022-07-03"
+start_date = "2020-01-01"
 end_date = "2025-10-01"
 
 def moving_average(data, window_size):
@@ -70,10 +70,11 @@ new_zscore = z_score - min_zscore
 cash_allocation = new_zscore / new_zscore.max()
 asset_allocation = 1 - cash_allocation
 vnindex_df["asset_allocation"] = asset_allocation
-vnindex_df.to_csv("vnindex_strategy.csv")
+vnindex_df.set_index('time', inplace=True)
+# vnindex_df.to_csv("vnindex_strategy.csv")
 # print(vnindex_df)
 # print(cross_point)
-# === Plot ===
+# # === Plot ===
 # fig, axes = plt.subplots(2, 1, figsize=(12, 8), sharex=True)
 
 # # Top chart: VNINDEX + MA50

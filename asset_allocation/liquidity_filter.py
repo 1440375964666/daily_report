@@ -26,7 +26,7 @@ last_day = date.today()
 # Loop through symbols and collect matched_value
 for symbol in tqdm(all_symbols):
     try:
-        quote = Quote(source='vnd', symbol=symbol)
+        quote = Quote(source="mas", symbol=symbol)
         df = quote.history(start=f"{first_day}", end=f'{last_day}', interval="1D")
 
         # Convert index to datetime if needed

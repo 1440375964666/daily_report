@@ -7,6 +7,7 @@ import time
 
 today = date.today() 
 start_date = "2025-07-03"
+source = "mas"
 
 def calculate_allshare_index(df: pd.DataFrame) -> pd.DataFrame:
     """
@@ -37,7 +38,7 @@ def get_allshare_index(symbols: list[str], start_date: str = {start_date}) -> pd
 
     for symbol in tqdm(symbols, desc="Loading VN_allshare_index"):
         print(f"Loading {symbol}")
-        quote = Quote(source='vnd', symbol=symbol)
+        quote = Quote(source=source, symbol=symbol)
         df = quote.history(start=start_date, end = f"{today}", interval="1D")
 
         if df is None or df.empty:
@@ -50,7 +51,7 @@ def get_allshare_index(symbols: list[str], start_date: str = {start_date}) -> pd
             sector_df = df
         else:
             sector_df = pd.merge(sector_df, df, on="time", how="outer")
-        time.sleep(1)  # To avoid hitting API rate limits
+        # time.sleep(1)  # To avoid hitting API rate limits
 
     if sector_df is not None:
 
@@ -70,7 +71,7 @@ def get_sector_index(symbols: dict, start_date: str = start_date) -> pd.DataFram
 
         for ticker in tqdm(symbol_list, desc=f"Loading {code}"):
             print(f"Loading {ticker}")
-            quote = Quote(source='vnd', symbol=ticker)
+            quote = Quote(source=source, symbol=ticker)
             df = quote.history(start=start_date, end=f"{today}", interval="1D")
 
             if df is None or df.empty:
@@ -85,7 +86,7 @@ def get_sector_index(symbols: dict, start_date: str = start_date) -> pd.DataFram
             else:
                 sector_df = pd.merge(sector_df, df, on="time", how="outer")
 
-            time.sleep(1)  # To avoid hitting API rate limits
+            # time.sleep(1)  # To avoid hitting API rate limits
 
         if sector_df is not None:
             sector_df.sort_values("time", inplace=True)

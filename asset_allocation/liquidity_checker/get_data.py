@@ -46,7 +46,7 @@ def get_mean_volume(symbol: str, start: str, end: str, interval: str) -> float |
     Fetch historical bars and return mean of 'volume' over the period.
     """
     try:
-        q = Quote(symbol=symbol, source="VCI")
+        q = Quote(symbol=symbol, source="mas")
         df = q.history(start=start, end=end, interval=interval)
         if df is None or df.empty:
             return None

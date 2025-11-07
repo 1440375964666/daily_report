@@ -46,7 +46,7 @@ yesterday = today - timedelta(days=5)  # fetch last few days to ensure data exis
 # === 3️⃣ Loop through symbols and fetch close price ===
 for symbol in tqdm(outstanding_share['symbol']):
     try:
-        quote = Quote(source='vnd', symbol=symbol)
+        quote = Quote(source="mas", symbol=symbol)
         df = quote.history(start=str(yesterday), end=str(today), interval="1D")
         if not df.empty:
             close_price = df['close'].iloc[-1]

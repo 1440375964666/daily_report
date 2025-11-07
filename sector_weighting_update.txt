@@ -1,9 +1,9 @@
 **📊 Sector Weighting Update**
 
-**Date:** 2025-11-06
+**Date:** 2025-11-07
 
-- **Kim loại**: 16.71%
-- **Hàng gia dụng**: 16.76%
-- **Khai khoáng**: 18.60%
-- **Công nghiệp nặng**: 18.65%
-- **Bất động sản**: 29.27%
+- **Xây dựng và Vật liệu**: 17.26%
+- **Tư vấn & Hỗ trợ Kinh doanh**: 19.89%
+- **Nước & Khí đốt**: 20.89%
+- **Phân phối thực phẩm & dược phẩm**: 20.91%
+- **Thiết bị và Dịch vụ Y tế**: 21.05%
