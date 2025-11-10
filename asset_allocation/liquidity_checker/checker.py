@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 
 def liquidity_checker(symbol, df):
     # Compute global mean vol_ratio

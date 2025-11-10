@@ -1,9 +1,9 @@
 **📊 Sector Weighting Update**
 
-**Date:** 2025-11-07
+**Date:** 2025-11-08
 
-- **Xây dựng và Vật liệu**: 17.26%
-- **Tư vấn & Hỗ trợ Kinh doanh**: 19.89%
-- **Nước & Khí đốt**: 20.89%
-- **Phân phối thực phẩm & dược phẩm**: 20.91%
-- **Thiết bị và Dịch vụ Y tế**: 21.05%
+- **Dược phẩm**: 15.00%
+- **Kim loại**: 19.39%
+- **Xây dựng và Vật liệu**: 20.27%
+- **Tư vấn & Hỗ trợ Kinh doanh**: 21.11%
+- **Nước & Khí đốt**: 24.24%
