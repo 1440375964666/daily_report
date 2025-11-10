@@ -1,4 +1,4 @@
-from risk import losing_percentage, risk, merge
+from risk import risk, merge
 from regime.checker import regime_changed_date
 import matplotlib.pyplot as plt
 from datetime import date
@@ -43,19 +43,12 @@ else:
 # print(kelly)
 today_str = date.today().strftime("%Y-%m-%d")
 today_formatted = date.today().strftime("%Y_%m_%d")
-# tomorrow_str = (date.today() + pd.Timedelta(days=1)).strftime("%Y_%m_%d")
 
 # Table data
 table_data = [
     [asset_allocation]
 ]
 column_header = [f"Khuyến nghị tự doanh: {today_formatted}"]
-# print(regime_changed_date)
-# print(merge)
-merge.index = pd.to_datetime(merge.index)
-merge = merge.loc[merge.index >= pd.Timestamp("2025-01-01")]
-# print(df_cut)
-# merge = merge.loc["2025-01-01":] #"2025-07-25"
 
 # ================================
 # Figure and layout (2 rows: plot + table)
@@ -69,7 +62,6 @@ ax_table = fig.add_subplot(gs[1])
 # --- Plot SELLING PRESSURE ---
 ax_plot.plot(merge.index, merge['z_score_vol'], label='Pressure', color='orange', linewidth=1.8)
 ax_plot.set_title('SELLING PRESSURE', fontsize=14, fontweight='bold', pad=10)
-# ax_plot.set_ylabel('SCORE')
 ax_plot.grid(True, alpha=0.3)
 ax_plot.legend(loc='upper left', fontsize=9)
 
@@ -89,8 +81,6 @@ plt.subplots_adjust(left=0.07, right=0.97, top=0.93, bottom=0.05, hspace=0.25)
 # ================================
 # Save exactly at OUT_W × OUT_H pixels
 # ================================
-# out_dir = "/"
-# out_name = f"selling_pressure_{OUT_W}x{OUT_H}.png"
 out_path = f"../selling_pressure_{today_formatted}.png" #os.path.join(out_dir, out_name)
 
 fig.savefig(out_path, dpi=DPI)

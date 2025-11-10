@@ -30,6 +30,8 @@ total_outstanding_share = outstanding_share['so_cp_luu_hanh'].sum()
 """ Merge & calculate """
 merge = pd.merge(sell_spread, vnindex, on='date')
 merge.set_index('date', inplace=True)
+merge.index = pd.to_datetime(merge.index)
+merge = merge.loc[merge.index >= pd.Timestamp("2020-11-19")]
 # merge = merge.loc[regime_changed_date:] #"2025-07-25"
 merge['total_buy_vol'] = merge[['vn_retail_buy_vol', 'fr_retail_buy_vol', 'vn_institute_buy_vol', 'fr_institute_buy_vol']].sum(axis=1)
 merge['vol_log'] = np.log(merge['total_buy_vol'])
@@ -47,25 +49,25 @@ merge.drop(columns=['vn_retail_buy_vol', 'vn_retail_buy_value', 'vn_retail_sell_
 mean_val = merge['z_score_vol'].mean()
 latest_vol = merge['z_score_vol'].iloc[-1]
 
-""" Calculate bouncing power """
-_, _, vol_mean = calculate_threshold(merge['z_score_vol'])
-vol_min = -2
-vol_max = 2.5
-if latest_vol <= vol_min:
-    losing_percentage = 0
-elif vol_max > latest_vol > vol_min:
-    losing_percentage = percentage_position(latest_vol, vol_min, vol_max)
-elif latest_vol >= vol_max:
-    losing_percentage = 100
+# """ Calculate bouncing power """
+# _, _, vol_mean = calculate_threshold(merge['z_score_vol'])
+# vol_min = -2
+# vol_max = 2.5
+# if latest_vol <= vol_min:
+#     losing_percentage = 0
+# elif vol_max > latest_vol > vol_min:
+#     losing_percentage = percentage_position(latest_vol, vol_min, vol_max)
+# elif latest_vol >= vol_max:
+#     losing_percentage = 100
 
-# print(f"⁜⁜⁜ Losing percentage: {losing_percentage:.2f}% ⁜⁜⁜")
+# # print(f"⁜⁜⁜ Losing percentage: {losing_percentage:.2f}% ⁜⁜⁜")
 
-if losing_percentage > 50:
-    bouncing_power = losing_percentage
-    power_index = f"⁜ GOING DOWN PROBABILITY: {bouncing_power:.2f}%"
-else:
-    bouncing_power = 100 - losing_percentage
-    power_index = f"⁜ GOING UP PROBABILITY: {bouncing_power:.2f}% "
+# if losing_percentage > 50:
+#     bouncing_power = losing_percentage
+#     power_index = f"⁜ GOING DOWN PROBABILITY: {bouncing_power:.2f}%"
+# else:
+#     bouncing_power = 100 - losing_percentage
+#     power_index = f"⁜ GOING UP PROBABILITY: {bouncing_power:.2f}% "
 
 """ Calculate risk """
 risk_min, risk_max, risk_mean = calculate_threshold(merge['z_score_vol'])
