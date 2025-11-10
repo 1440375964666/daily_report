@@ -50,6 +50,12 @@ table_data = [
     [asset_allocation]
 ]
 column_header = [f"Khuyến nghị tự doanh: {today_formatted}"]
+# print(regime_changed_date)
+# print(merge)
+merge.index = pd.to_datetime(merge.index)
+merge = merge.loc[merge.index >= pd.Timestamp("2025-01-01")]
+# print(df_cut)
+# merge = merge.loc["2025-01-01":] #"2025-07-25"
 
 # ================================
 # Figure and layout (2 rows: plot + table)
@@ -63,7 +69,7 @@ ax_table = fig.add_subplot(gs[1])
 # --- Plot SELLING PRESSURE ---
 ax_plot.plot(merge.index, merge['z_score_vol'], label='Pressure', color='orange', linewidth=1.8)
 ax_plot.set_title('SELLING PRESSURE', fontsize=14, fontweight='bold', pad=10)
-ax_plot.set_ylabel('SCORE')
+# ax_plot.set_ylabel('SCORE')
 ax_plot.grid(True, alpha=0.3)
 ax_plot.legend(loc='upper left', fontsize=9)
 

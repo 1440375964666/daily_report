@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 from vnstock_data import Quote
 from function import calculate_threshold, percentage_position
-from regime.checker import regime_changed_date
+# from regime.checker import regime_changed_date
 
 path = "../clean_data/trading_data.csv"
 
@@ -30,7 +30,7 @@ total_outstanding_share = outstanding_share['so_cp_luu_hanh'].sum()
 """ Merge & calculate """
 merge = pd.merge(sell_spread, vnindex, on='date')
 merge.set_index('date', inplace=True)
-merge = merge.loc[regime_changed_date:] #"2025-07-25"
+# merge = merge.loc[regime_changed_date:] #"2025-07-25"
 merge['total_buy_vol'] = merge[['vn_retail_buy_vol', 'fr_retail_buy_vol', 'vn_institute_buy_vol', 'fr_institute_buy_vol']].sum(axis=1)
 merge['vol_log'] = np.log(merge['total_buy_vol'])
 merge['vol_spread'] = merge['vol_log'] - np.log(total_outstanding_share) 
