@@ -36,7 +36,7 @@ ranked = last_row.sort_values(ascending=False)
 sum_abs = abs(ranked[-5:]).sum()
 weight = (abs(ranked) / sum_abs) * 100
 current_weight = weight[-5:]
-print(weight)
+# print(weight)
 message = "**📊 Sector Weighting Update**\n\n"
 message += f"**Date:** {tomorrow_str}\n\n"
 for sector, value in current_weight.items():
